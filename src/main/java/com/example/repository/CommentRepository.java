@@ -41,12 +41,22 @@ public class CommentRepository {
 		
 		/**
 		 * コメント投稿機能
-		 * @param name コメント者名
-		 * @param content　コメント内容
+		 * @param name コメント内容（全情報）
 		 */
 		public void insert(Comment comment) {
 			String sql = "INSERT INTO comments (name,content,article_id) VALUES (:name,:content,:article_id)";
 			SqlParameterSource param = new MapSqlParameterSource().addValue("name", comment.getName()).addValue("content", comment.getContent()).addValue("article_id", comment.getArticleId());
 			template.update(sql,param);
 		}
+		
+		/**
+		 * コメント削除機能
+		 * @param　投稿者ID
+		 */
+		public void deleteByArticleId(Integer articleId) {
+			String sql = "DELETE FROM comments WHERE article_id = :articleId";
+			SqlParameterSource param = new MapSqlParameterSource().addValue("articleId", articleId);
+			template.update(sql,param);
+		}
+		
 }

@@ -5,34 +5,45 @@
 <title>掲示板</title>
 </head>
 <body>
-
-<form th:action="@{/bbs/insert-articles}" method="post" th:object="${articlesForm}">
-投稿者名：<input type="text" name="name" th:field="*{name}">
-<br>
-投稿内容：<textarea name="content" rows="4" cols="25" th:field="*{content}"></textarea>
-<br>
-<button>記事投稿</button>
-</form>
-<hr>
-
-<div th:each="article:${articleList}">
-投稿者名：<span th:text="${article.name}"></span><br>
-投稿内容：<pre th:text="${article.content}"></pre>
-<button>記事削除</button>
-
-<div th:each="comment:${article.commentList}">
-コメント者名：<span th:text="${comment.name}"></span><br>
-コメント内容：<pre th:text="${comment.content}"></pre>
-</div>
-<form th:action="@{/bbs/insert-comment}" method="post" th:object="${commentForm}">
-名前：<br>
-<input type="text" name="name" th:field="*{name}"><br>
-コメント内容：<br>
-<textarea name="content" rows="4" cols="25" th:field="*{content}"></textarea><br>
-<input type="hidden" name="articleId" th:value="${article.id}"><br>
-<button>コメント投稿</button>
-</form>
-<hr>
-</div>
+<h1>掲示板システム演習</h1>
+<!-- 記事投稿フォーム -->
+	<form th:action="@{/bbs/insert-articles}" method="post"
+		th:object="${articlesForm}">
+		投稿者名：<input type="text" name="name" th:field="*{name}"> <br>
+		投稿内容：
+		<textarea name="content" rows="4" cols="25" th:field="*{content}"></textarea>
+		<br>
+		<button>記事投稿</button>
+	</form>
+	<hr>
+	
+<!-- 掲示板投稿内容（投稿・コメント） -->
+	<div th:each="article:${articleList}">
+		投稿者名：<span th:text="${article.name}"></span><br> 
+		投稿内容：
+		<pre th:text="${article.content}"></pre>
+		
+		<form th:action="@{/bbs/delete}" method="post">
+			<input type="hidden" name="articleId"th:value="${article.id}" >
+			<button>記事削除</button>
+		</form>
+		
+		<div th:each="comment:${article.commentList}">
+			コメント者名：<span th:text="${comment.name}"></span><br> 
+			コメント内容：
+			<pre th:text="${comment.content}"></pre>
+		</div>
+		
+<!-- コメント投稿フォーム -->
+		<form th:action="@{/bbs/insert-comment}" method="post"
+			th:object="${commentForm}">
+			名前：<br> <input type="text" name="name" th:field="*{name}"><br>
+			コメント内容：<br>
+			<textarea name="content" rows="4" cols="25" th:field="*{content}"></textarea>
+			<br> <input type="hidden" name="articleId" th:value="${article.id}"><br>
+			<button>コメント投稿</button>
+		</form>
+		<hr>
+	</div>
 </body>
 </html>

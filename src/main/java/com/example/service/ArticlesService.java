@@ -22,8 +22,8 @@ public class ArticlesService {
 		repository.insert(articles);
 	}
 	
-	public void deleteByArticleId(int articleId){
-		repository.deleteById(articleId);
+	public void deleteByArticleId(Integer id){
+		repository.deleteById(id);
 	}
 	
 }

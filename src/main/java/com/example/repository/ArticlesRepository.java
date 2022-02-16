@@ -48,12 +48,11 @@ public class ArticlesRepository {
 	
 	/**
 	 * 記事削除機能
-	 * @param id
+	 * @param 投稿者ID
 	 */
-	public void deleteById(Integer articleId) {
-		String sql = "DELETE FROM articles WHERE article_id=:articleId";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("articleId", articleId);
+	public void deleteById(Integer id) {
+		String sql = "DELETE FROM articles WHERE id = :id";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
 		template.update(sql, param);
 	}
-	
 }

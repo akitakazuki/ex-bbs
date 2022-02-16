@@ -9,7 +9,7 @@ public class Articles {
 	private String name;
 	//投稿内容
 	private String content;
-	//投稿者リスト
+	//コメントリスト
 	private List<Comment> commentList ;
 	
 	public Integer getId() {

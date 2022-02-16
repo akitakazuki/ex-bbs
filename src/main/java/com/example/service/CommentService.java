@@ -13,6 +13,7 @@ public class CommentService {
 	@Autowired
 	private CommentRepository commentRepository;
 	
+	
 	public List<Comment> findByArticleId(int articleId){
 		List<Comment> commentList = commentRepository.findByArticleId(articleId);
 		return commentList;		
@@ -20,5 +21,9 @@ public class CommentService {
 	
 	public void insert(Comment comment){
 		commentRepository.insert(comment);
+	}
+	
+	public void deleteByArticleId(Integer articleId){
+		commentRepository.deleteByArticleId(articleId);
 	}
 }
