@@ -1,7 +1,6 @@
 package com.example.controller;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +46,6 @@ public class ArticlesController {
 			article.setCommentList(commentList);
 		}
 		model.addAttribute("articleList",articleList);
-	
 		return "bbs";
 	}
 	
@@ -59,21 +57,22 @@ public class ArticlesController {
 		articlesService.insert(articles);
 		List<Articles> articleList = articlesService.findAll();;
 		model.addAttribute("articleList",articleList);
-		return "bbs";
+		return "redirect:/bbs";
 	}
 	
 	@RequestMapping("/insert-comment")
 	public String insertComment(Comment comment,CommentForm commentForm,Model model) {
 		comment.setName(commentForm.getName());
-		comment.setArticleId(commentForm.getArticleId());
 		comment.setContent(commentForm.getContent());
-		return "bbs";
+		comment.setArticleId(commentForm.getArticleId());
+		commentService.insert(comment);
+		return "redirect:/bbs";
 	}
 	
 	@RequestMapping("/delete")
 	public String deleteArticle(Integer articleId) {
 		articlesService.deleteByArticleId(articleId);
-		return "bbs";
+		return "redirect:/bbs";
 	}
 	
 }

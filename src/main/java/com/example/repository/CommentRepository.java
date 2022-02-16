@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
+
 import com.example.domain.Comment;
 
 @Repository
@@ -26,12 +27,26 @@ public class CommentRepository {
 		@Autowired
 		private NamedParameterJdbcTemplate template;
 		
-		
+		/**
+		 * コメント表示機能
+		 * @param　投稿者ID
+		 * @return commentList　コメント表示内容
+		 */
 		public List<Comment> findByArticleId(int articleId){
 			String sql = "SELECT * FROM comments WHERE article_id = :articleId";
 			SqlParameterSource param = new MapSqlParameterSource().addValue("articleId",articleId);
 			List<Comment> commentList = template.query(sql,param,COMMENT_ROW_MAPPER);	
 			return commentList;
-			
+		}
+		
+		/**
+		 * コメント投稿機能
+		 * @param name コメント者名
+		 * @param content　コメント内容
+		 */
+		public void insert(Comment comment) {
+			String sql = "INSERT INTO comments (name,content,article_id) VALUES (:name,:content,:article_id)";
+			SqlParameterSource param = new MapSqlParameterSource().addValue("name", comment.getName()).addValue("content", comment.getContent()).addValue("article_id", comment.getArticleId());
+			template.update(sql,param);
 		}
 }

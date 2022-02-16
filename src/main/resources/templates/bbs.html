@@ -15,7 +15,6 @@
 </form>
 <hr>
 
-
 <div th:each="article:${articleList}">
 投稿者名：<span th:text="${article.name}"></span><br>
 投稿内容：<pre th:text="${article.content}"></pre>
@@ -25,22 +24,15 @@
 コメント者名：<span th:text="${comment.name}"></span><br>
 コメント内容：<pre th:text="${comment.content}"></pre>
 </div>
-
-
-
-
-
-
-
-<form th:action="@{/bbs/insert-comment}" th:object="${commentForm}">
+<form th:action="@{/bbs/insert-comment}" method="post" th:object="${commentForm}">
 名前：<br>
 <input type="text" name="name" th:field="*{name}"><br>
 コメント内容：<br>
 <textarea name="content" rows="4" cols="25" th:field="*{content}"></textarea><br>
+<input type="hidden" name="articleId" th:value="${article.id}"><br>
 <button>コメント投稿</button>
-<hr>
-</div>
 </form>
 <hr>
+</div>
 </body>
 </html>
