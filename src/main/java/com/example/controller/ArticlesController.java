@@ -1,5 +1,7 @@
 package com.example.controller;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,24 +38,42 @@ public class ArticlesController {
 	
 	
 	
-	@RequestMapping("/list")
-	public String list(CommentForm commentForm ,Model model) {
-		List<Articles> articleList = articlesService.showAll();
-		model.addAttribute("articleList",articleList) ;
+	@RequestMapping("")
+	public String index(Model model) {
+		List<Articles> articleList = articlesService.findAll();
 		
-//		List<Comment> commentList = commentService.showComment(commentForm.getId());
-//		model.addAttribute("commentList",commentList);
+		for (Articles article : articleList) {
+			List<Comment> commentList = commentService.findByArticleId(article.getId());
+			article.setCommentList(commentList);
+		}
+		model.addAttribute("articleList",articleList);
+	
 		return "bbs";
 	}
 	
-	@RequestMapping("/insert")
-	public String input(Articles articles, ArticlesForm articlesForm,Model model) {
+	@RequestMapping("/insert-articles")
+	public String insertArticle(Articles articles, ArticlesForm articlesForm,Model model) {
 		articles.setName(articlesForm.getName());
 		articles.setContent(articlesForm.getContent());
-		articlesService.inputData(articles);
-		List<Articles> articleList = articlesService.showAll();;
-		model.addAttribute("articleList",articleList) ;
+		
+		articlesService.insert(articles);
+		List<Articles> articleList = articlesService.findAll();;
+		model.addAttribute("articleList",articleList);
 		return "bbs";
 	}
-
+	
+	@RequestMapping("/insert-comment")
+	public String insertComment(Comment comment,CommentForm commentForm,Model model) {
+		comment.setName(commentForm.getName());
+		comment.setArticleId(commentForm.getArticleId());
+		comment.setContent(commentForm.getContent());
+		return "bbs";
+	}
+	
+	@RequestMapping("/delete")
+	public String deleteArticle(Integer articleId) {
+		articlesService.deleteByArticleId(articleId);
+		return "bbs";
+	}
+	
 }

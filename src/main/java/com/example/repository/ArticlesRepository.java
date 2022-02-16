@@ -16,6 +16,7 @@ public class ArticlesRepository {
 	
 	private static final RowMapper<Articles> ARTICLES_ROW_MAPPER =(rs,i)->{
 		Articles articles = new Articles();
+		articles.setId(rs.getInt("id"));
 		articles.setName(rs.getString("name"));
 		articles.setContent(rs.getString("content"));
 		return articles;
@@ -40,7 +41,7 @@ public class ArticlesRepository {
 	 * @return articlesList　掲示板表示内容（投稿者、投稿内容）
 	 */
 	public List<Articles> findAll(){
-		String sql = "SELECT name,content FROM articles ORDER BY id DESC";
+		String sql = "SELECT * FROM articles ORDER BY id DESC";
 		List<Articles> articlesList = template.query(sql,ARTICLES_ROW_MAPPER);
 		return articlesList;
 	}
@@ -49,9 +50,9 @@ public class ArticlesRepository {
 	 * 記事削除機能
 	 * @param id
 	 */
-	public void delete(Integer id) {
-		String sql = "DELETE FROM articles WHERE id=:id";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+	public void deleteById(Integer articleId) {
+		String sql = "DELETE FROM articles WHERE article_id=:articleId";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("articleId", articleId);
 		template.update(sql, param);
 	}
 	

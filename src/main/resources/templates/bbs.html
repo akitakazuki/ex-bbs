@@ -5,18 +5,42 @@
 <title>掲示板</title>
 </head>
 <body>
-<form th:action="@{/bbs/insert}" th:object="${articlesForm}">
+
+<form th:action="@{/bbs/insert-articles}" method="post" th:object="${articlesForm}">
 投稿者名：<input type="text" name="name" th:field="*{name}">
 <br>
 投稿内容：<textarea name="content" rows="4" cols="25" th:field="*{content}"></textarea>
 <br>
 <button>記事投稿</button>
-<hr>
 </form>
-<span th:each="article:${articleList}">
+<hr>
+
+
+<div th:each="article:${articleList}">
 投稿者名：<span th:text="${article.name}"></span><br>
 投稿内容：<pre th:text="${article.content}"></pre>
-</span>
+<button>記事削除</button>
 
+<div th:each="comment:${article.commentList}">
+コメント者名：<span th:text="${comment.name}"></span><br>
+コメント内容：<pre th:text="${comment.content}"></pre>
+</div>
+
+
+
+
+
+
+
+<form th:action="@{/bbs/insert-comment}" th:object="${commentForm}">
+名前：<br>
+<input type="text" name="name" th:field="*{name}"><br>
+コメント内容：<br>
+<textarea name="content" rows="4" cols="25" th:field="*{content}"></textarea><br>
+<button>コメント投稿</button>
+<hr>
+</div>
+</form>
+<hr>
 </body>
 </html>

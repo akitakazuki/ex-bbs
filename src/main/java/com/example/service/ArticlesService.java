@@ -14,19 +14,16 @@ public class ArticlesService {
 	@Autowired
 	private ArticlesRepository repository;
 	
-	/**
-	 * 記事一覧を表示する
-	 * @return 記事一覧表示
-	 */
-	public List<Articles> showAll() {
+	public List<Articles> findAll() {
 		return repository.findAll();
 	}
 	
-	/**
-	 * @param name　入力された投稿者名
-	 * @param content　入力された投稿内容
-	 */
-	public void inputData(Articles articles){
+	public void insert(Articles articles){
 		repository.insert(articles);
 	}
+	
+	public void deleteByArticleId(int articleId){
+		repository.deleteById(articleId);
+	}
+	
 }
