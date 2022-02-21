@@ -23,7 +23,7 @@ public class CommentService {
 		commentRepository.insert(comment);
 	}
 	
-	public void deleteByArticleId(Integer articleId){
+	public void deleteByArticleId(int articleId){
 		commentRepository.deleteByArticleId(articleId);
 	}
 }

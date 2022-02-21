@@ -53,7 +53,7 @@ public class CommentRepository {
 		 * コメント削除機能
 		 * @param　投稿者ID
 		 */
-		public void deleteByArticleId(Integer articleId) {
+		public void deleteByArticleId(int articleId) {
 			String sql = "DELETE FROM comments WHERE article_id = :articleId";
 			SqlParameterSource param = new MapSqlParameterSource().addValue("articleId", articleId);
 			template.update(sql,param);

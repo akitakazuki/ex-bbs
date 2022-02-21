@@ -44,7 +44,7 @@ public class ArticlesController {
 	public String index(Model model) {
 		List<Articles> articleList = articlesService.findAll();
 		
-		//すべての投稿情報から投稿者IDを取得し、投稿ドメインのコメントリストに格納する
+		//すべての投稿情報から投稿者IDを取得し、検索したコメント情報をarticleドメインに格納する
 		for (Articles article : articleList) {
 			List<Comment> commentList = commentService.findByArticleId(article.getId());
 			article.setCommentList(commentList);

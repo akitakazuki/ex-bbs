@@ -22,7 +22,7 @@ public class ArticlesService {
 		repository.insert(articles);
 	}
 	
-	public void deleteByArticleId(Integer id){
+	public void deleteByArticleId(int id){
 		repository.deleteById(id);
 	}
 	
